@@ -1,18 +1,37 @@
 import azure.functions as func
-import json 
 import logging
-from src import chat
-import uuid
 from datetime import datetime, timedelta
+from src import chat 
+import json 
+import uuid 
+memory = {}
+
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
+@app.route(route="health")
+def health(req: func.HttpRequest) -> func.HttpResponse:
+    logging.info('Python HTTP trigger function processed a request.')
 
-memory = {
-    '1':{'messages':[],'last_modified':0}
-}
+    name = req.params.get('name')
+    if not name:
+        try:
+            req_body = req.get_json()
+        except ValueError:
+            pass
+        else:
+            name = req_body.get('name')
 
-@app.route(route="chat")
-def chat_route(req: func.HttpRequest) -> func.HttpResponse:
+    if name:
+        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
+    else:
+        return func.HttpResponse(
+             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
+             status_code=200
+        )
+    
+
+@app.route(route="talk")
+def talk(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     body = req.get_body().decode('utf-8')
@@ -30,11 +49,14 @@ def chat_route(req: func.HttpRequest) -> func.HttpResponse:
     memory[conversation_id]['messages'].append({'role':'user','content':user_message})  
     memory[conversation_id]['last_modified'] = datetime.now()
     res = chat(messages=memory[conversation_id]['messages'])
-    memory[conversation_id]['messages'].append(res)
+    memory[conversation_id]['messages'].append({
+        'role':'assistant',
+        'content':res.content
+    })
     
     return func.HttpResponse(
         json.dumps({
-            'answer':res,
+            'answer':res.content,
             'conversation_id':conversation_id
         }),
         mimetype="application/json",
@@ -42,8 +64,7 @@ def chat_route(req: func.HttpRequest) -> func.HttpResponse:
     )
     
 
-
-@app.timer_trigger(schedule="0 10 * * * *", arg_name="myTimer", run_on_startup=False,
+@app.timer_trigger(schedule="0 */10 * * * *", arg_name="myTimer", run_on_startup=False,
               use_monitor=False) 
 def clean_up_memory(myTimer: func.TimerRequest) -> None:
     

@@ -3,6 +3,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 import re 
+import logging
 
 bing_grounded_sites = [
     'sec.gov',
@@ -78,15 +79,19 @@ bing_tool_def = {
 
 import json 
 def chat(messages):
+    logging.info(f"chatting with {len(messages)} messages")
     res = client.chat.completions.create(
         model="gpt-4o",
         messages=messages,
         tools=[bing_tool_def,]
     )
+    logging.info(f"received: {res.choices[0].message.content}")
     appendix = []
     while res.choices[0].message.tool_calls:
+        logging.info(f"processing tool_calls")
         appendix.append(res.choices[0].message)
         for tool in res.choices[0].message.tool_calls:
+            logging.info(f"processing tool_call: {tool.function.name}")
             if tool.function.name == 'search_and_get_text':
                 args = json.loads(tool.function.arguments)
                 query = args['query']
@@ -96,6 +101,7 @@ def chat(messages):
                     'tool_call_id':tool.id,
                     'content': search_and_get_text(query)
                 })
+                logging.info(f"  - searched and got text")
         messages = messages + appendix
         print(f"sending {len(messages)} messages")
         res = client.chat.completions.create(
@@ -103,4 +109,5 @@ def chat(messages):
             messages=messages,
         )
         appendix = []
+    logging.info(f"returning: {res.choices[0].message.content}")
     return res.choices[0].message
