@@ -4,7 +4,7 @@ API = 'https://demoforfischatagent.azurewebsites.net'
 
 def test():
     response = requests.get(f"{API}/api/talk", json={
-        "conversation_id": "b61e5ca49b9a411dbfa6902e11127b14", # for follow up
+        "conversation_id": "", # for follow up
         "user_message":"Can you share some links to SEC website?",
     })
     res = response.json()
