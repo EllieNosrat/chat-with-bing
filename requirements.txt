@@ -7,3 +7,4 @@ python-dotenv
 openai
 bs4
 requests
+azure-search-documents
