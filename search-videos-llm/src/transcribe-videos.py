@@ -32,8 +32,8 @@ def upload_file_to_blob_storage(file_path, blob_name, container_name):
 
 video_container_name = "mp4s"
 transcript_container_name = "transcripts"
-video_folder_name = "videos-to-search"
-transcript_folder_name = "transcripts"
+video_folder_name = "data/videos-to-search"
+transcript_folder_name = "data/transcripts"
 blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
 container_client = blob_service_client.get_container_client(video_container_name)
 # Process each blob in container

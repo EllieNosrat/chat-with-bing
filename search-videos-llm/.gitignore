@@ -1,4 +1,4 @@
 src/config.py
-transcripts/*.txt
-transcripts_json/*.json
-videos-to-search/*.mp4
+data/transcripts/*.txt
+data/transcripts_json/*.json
+data/videos-to-search/*.mp4

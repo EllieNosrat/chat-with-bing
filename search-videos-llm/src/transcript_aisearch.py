@@ -147,10 +147,10 @@ if __name__ == "__main__":
     from glob import glob 
     import shutil
     # src_files = glob('data/transcripts/*.txt')
-    transcript_folder = get_folder_full_path('transcripts')
+    transcript_folder = get_folder_full_path('data/transcripts')
     transcript_files_selector = os.path.join(transcript_folder, '*.txt')
-    json_folder = get_folder_full_path('transcripts_json')
-    # json_files_selector = os.path.join(json_folder, '*.txt')
+    json_folder = get_folder_full_path('data/transcripts_json')
+    json_files_selector = os.path.join(json_folder, '*.json')
 
     src_files = glob(transcript_files_selector)
     shutil.rmtree(json_folder, ignore_errors=True)
@@ -163,10 +163,11 @@ if __name__ == "__main__":
         process_file_to_json(src_file, dest_file, vectorize=True)
     
     # create index
-    index_name = 'transcripts'  
+    index_name = 'azureindex-transcript'  
     # create_ai_search_index(index_name)
 
     # upload documents
-    documents = glob('data/transcripts_json/*.json')
+    # documents = glob('data/transcripts_json/*.json')
+    documents = glob(json_files_selector)
     upload_documents_to_index(index_name, documents)
     print('done')
