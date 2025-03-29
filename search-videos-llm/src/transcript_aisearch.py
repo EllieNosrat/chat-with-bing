@@ -32,6 +32,15 @@ def create_ai_search_index(index_name: str):
         credential=AzureKeyCredential(AZURE_SEARCH_API_KEY),
     )
 
+    # Check if the index already exists
+    try:
+        ai_search_index_client.get_index(index_name)
+        print(f"Index {index_name} already exists. No need to create a new index.")
+        return
+    except Exception as e:
+        print(f"Index {index_name} does not exist. Creating a new index.")
+
+    # Create the index
     index = SearchIndex(
         name=index_name,
         fields=[
@@ -41,7 +50,8 @@ def create_ai_search_index(index_name: str):
             SimpleField(name="chunk_start_seconds", type="Edm.Int32", retrievable=True, filterable=True, sortable=True),
             SimpleField(name="video_file_name", type="Edm.String", retrievable=True),
             SimpleField(name="chunk_number", type="Edm.Int32", retrievable=True, filterable=True, sortable=True),
-            SearchField(name="vector", type="Collection(Edm.Single)", retrievable=True, vector_search_dimensions=1536, vector_search_profile_name='vector-profile-1'),
+            SearchField(name="vector", type="Collection(Edm.Single)", vector_search_dimensions=1536, vector_search_profile_name='vector-profile-1'),
+            # SearchField(name="vector", type="Collection(Edm.Single)", retrievable=True, vector_search_dimensions=1536, vector_search_profile_name='vector-profile-1'),
         ],
         vector_search= {
             "algorithms": [
@@ -163,8 +173,8 @@ if __name__ == "__main__":
         process_file_to_json(src_file, dest_file, vectorize=True)
     
     # create index
-    index_name = 'azureindex-transcript'  
-    # create_ai_search_index(index_name)
+    index_name = 'videotranscriptsindex4'
+    create_ai_search_index(index_name)
 
     # upload documents
     # documents = glob('data/transcripts_json/*.json')

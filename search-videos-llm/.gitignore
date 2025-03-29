@@ -2,3 +2,4 @@ src/config.py
 data/transcripts/*.txt
 data/transcripts_json/*.json
 data/videos-to-search/*.mp4
+.vscode/*
