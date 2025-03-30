@@ -67,6 +67,8 @@ def main():
         upload_file_to_blob_storage(transcript_full_path, transcript_file_name, transcript_container_name)
         print(f"Transcript uploaded to Azure Blob Storage container {transcript_container_name} with blob name {transcript_file_name}")
 
+    print("All videos downloaded, transcribed, and uploaded successfully.")
+    
 if __name__ == "__main__":
     main()
     

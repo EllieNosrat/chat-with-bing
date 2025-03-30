@@ -179,7 +179,7 @@ def main():
     documents = glob(json_files_selector)
     # upload_documents_to_index(index_name, documents)
     upload_documents_to_index(AZURE_SEARCH_INDEX_NAME, documents)
-    print('done')
+    print('Finished uploading documents to index')
 
 if __name__ == "__main__":
     main()
