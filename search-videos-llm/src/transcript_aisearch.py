@@ -6,7 +6,7 @@ from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from azure.search.documents.indexes import SearchIndexClient 
 from azure.search.documents.indexes.models import SimpleField, SearchableField, SearchIndex, SearchField
-from config import AZURE_SEARCH_ENDPOINT, AZURE_SEARCH_API_KEY, AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_KEY
+from config import AZURE_SEARCH_ENDPOINT, AZURE_SEARCH_API_KEY, AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_KEY, AZURE_SEARCH_INDEX_NAME
 
 from dotenv import load_dotenv
 # load_dotenv('.env', override=True)
@@ -173,11 +173,12 @@ if __name__ == "__main__":
         process_file_to_json(src_file, dest_file, vectorize=True)
     
     # create index
-    index_name = 'videotranscriptsindex4'
-    create_ai_search_index(index_name)
-
+    # index_name = 'videotranscriptsindex4'
+    # create_ai_search_index(index_name)
+    create_ai_search_index(AZURE_SEARCH_INDEX_NAME)
     # upload documents
     # documents = glob('data/transcripts_json/*.json')
     documents = glob(json_files_selector)
-    upload_documents_to_index(index_name, documents)
+    # upload_documents_to_index(index_name, documents)
+    upload_documents_to_index(AZURE_SEARCH_INDEX_NAME, documents)
     print('done')
