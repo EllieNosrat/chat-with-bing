@@ -50,7 +50,6 @@ inputs = [
     {'role':'user','content':new_msg}
 ]
 openAiResult = oaiClient.chat.completions.create(
-    # engine="gpt-4o",
     model="gpt-4o",
     messages=inputs,
     temperature=0.5,
@@ -65,4 +64,3 @@ openAiMessage = openAiResult.choices[0].message
 
 print("Response:")
 print(openAiMessage)
-

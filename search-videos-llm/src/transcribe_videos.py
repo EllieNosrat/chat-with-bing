@@ -37,6 +37,7 @@ def main():
     transcript_folder_name = "data/transcripts"
     blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
     container_client = blob_service_client.get_container_client(video_container_name)
+
     # Process each blob in container
     blobs = container_client.list_blobs()
     for blob in blobs:
@@ -71,4 +72,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-    

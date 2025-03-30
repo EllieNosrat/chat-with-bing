@@ -8,10 +8,8 @@ from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 
 # Azure Cognitive Search Details
-# search_endpoint = f"https://{AZURE_SEARCH_SERVICE_NAME}.search.windows.net/"
 client = SearchClient(
     endpoint=AZURE_SEARCH_ENDPOINT,
-    # endpoint=search_endpoint,
     index_name=AZURE_SEARCH_INDEX_NAME,
     credential=AzureKeyCredential(AZURE_SEARCH_API_KEY)
 )

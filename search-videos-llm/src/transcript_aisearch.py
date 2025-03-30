@@ -9,7 +9,6 @@ from azure.search.documents.indexes.models import SimpleField, SearchableField, 
 from config import AZURE_SEARCH_ENDPOINT, AZURE_SEARCH_API_KEY, AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_API_KEY, AZURE_OPENAI_DEPLOYMENT_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_KEY, AZURE_SEARCH_INDEX_NAME
 
 from dotenv import load_dotenv
-# load_dotenv('.env', override=True)
 
 def clean_str_for_id(id:str)->str:
     '''Cleans a string to be used as an id in Azure Search'''
@@ -20,11 +19,6 @@ oai_client = AzureOpenAI(
     azure_endpoint=AZURE_OPENAI_DEPLOYMENT_ENDPOINT,
     api_key=AZURE_OPENAI_DEPLOYMENT_KEY,
 )
-# oai_client = AzureOpenAI(
-#     azure_endpoint=AZURE_OPENAI_ENDPOINT,
-#     api_key=AZURE_OPENAI_API_KEY,
-#     api_version="2024-02-01",
-# )
 
 def create_ai_search_index(index_name: str):
     ai_search_index_client = SearchIndexClient(
@@ -51,7 +45,6 @@ def create_ai_search_index(index_name: str):
             SimpleField(name="video_file_name", type="Edm.String", retrievable=True),
             SimpleField(name="chunk_number", type="Edm.Int32", retrievable=True, filterable=True, sortable=True),
             SearchField(name="vector", type="Collection(Edm.Single)", vector_search_dimensions=1536, vector_search_profile_name='vector-profile-1'),
-            # SearchField(name="vector", type="Collection(Edm.Single)", retrievable=True, vector_search_dimensions=1536, vector_search_profile_name='vector-profile-1'),
         ],
         vector_search= {
             "algorithms": [
@@ -76,7 +69,6 @@ def create_ai_search_index(index_name: str):
     }
     )
     ai_search_index_client.create_index(index)
-
 
 def process_file_to_json(src_file_path: str, dest_file_path: str, vectorize=False):
     '''Converts a text file to a json file with the following structure:
@@ -154,7 +146,6 @@ def main():
     load_dotenv('.env', override=True)
     from glob import glob 
     import shutil
-    # src_files = glob('data/transcripts/*.txt')
     transcript_folder = get_folder_full_path('data/transcripts')
     transcript_files_selector = os.path.join(transcript_folder, '*.txt')
     json_folder = get_folder_full_path('data/transcripts_json')
@@ -170,17 +161,11 @@ def main():
         dest_file = src_file.replace('/transcripts/','/transcripts_json/').replace('.txt', '.json')
         process_file_to_json(src_file, dest_file, vectorize=True)
     
-    # create index
-    # index_name = 'videotranscriptsindex4'
-    # create_ai_search_index(index_name)
     create_ai_search_index(AZURE_SEARCH_INDEX_NAME)
     # upload documents
-    # documents = glob('data/transcripts_json/*.json')
     documents = glob(json_files_selector)
-    # upload_documents_to_index(index_name, documents)
     upload_documents_to_index(AZURE_SEARCH_INDEX_NAME, documents)
     print('Finished uploading documents to index')
 
 if __name__ == "__main__":
-    main()
-    
+    main()   
