@@ -30,38 +30,43 @@ def upload_file_to_blob_storage(file_path, blob_name, container_name):
     with open(file_path, "rb") as data:
         blob_client.upload_blob(data, overwrite=True)
 
-video_container_name = "mp4s"
-transcript_container_name = "transcripts"
-video_folder_name = "data/videos-to-search"
-transcript_folder_name = "data/transcripts"
-blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
-container_client = blob_service_client.get_container_client(video_container_name)
-# Process each blob in container
-blobs = container_client.list_blobs()
-for blob in blobs:
-    print(f"Processing {blob.name}...")
-    video_file_name = blob.name
-    video_full_path = get_video_full_path(video_file_name, video_folder_name)
-    transcript_file_name = video_file_name.replace(".mp4", ".txt")
-    transcript_full_path = get_video_full_path(transcript_file_name, transcript_folder_name)
-    download_file_from_blob_storage(video_file_name, video_full_path, "mp4s")
-    print(f"Video downloaded from Azure Blob Storage to {video_full_path}")
+def main():
+    video_container_name = "mp4s"
+    transcript_container_name = "transcripts"
+    video_folder_name = "data/videos-to-search"
+    transcript_folder_name = "data/transcripts"
+    blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
+    container_client = blob_service_client.get_container_client(video_container_name)
+    # Process each blob in container
+    blobs = container_client.list_blobs()
+    for blob in blobs:
+        print(f"Processing {blob.name}...")
+        video_file_name = blob.name
+        video_full_path = get_video_full_path(video_file_name, video_folder_name)
+        transcript_file_name = video_file_name.replace(".mp4", ".txt")
+        transcript_full_path = get_video_full_path(transcript_file_name, transcript_folder_name)
+        download_file_from_blob_storage(video_file_name, video_full_path, "mp4s")
+        print(f"Video downloaded from Azure Blob Storage to {video_full_path}")
 
-    client = AzureOpenAI(
-        api_key=AZURE_OPENAI_WHISPER_DEPLOYMENT_KEY,
-        api_version=AZURE_OPENAI_WHISPER_DEPLOYMENT_VERSION,
-        azure_endpoint = AZURE_OPENAI_WHISPER_DEPLOYMENT_ENDPOINT
-    )
+        client = AzureOpenAI(
+            api_key=AZURE_OPENAI_WHISPER_DEPLOYMENT_KEY,
+            api_version=AZURE_OPENAI_WHISPER_DEPLOYMENT_VERSION,
+            azure_endpoint = AZURE_OPENAI_WHISPER_DEPLOYMENT_ENDPOINT
+        )
 
-    deployment_id = "whisper"
-    video_file=open(video_full_path, mode="rb")
-    transcript_results = client.audio.transcriptions.create(
-        file=video_file,
-        model=deployment_id
-    )
+        deployment_id = "whisper"
+        video_file=open(video_full_path, mode="rb")
+        transcript_results = client.audio.transcriptions.create(
+            file=video_file,
+            model=deployment_id
+        )
 
-    save_string_to_file(transcript_full_path, transcript_results.text)
-    print(f"Transcript saved locally to {transcript_full_path}")
+        save_string_to_file(transcript_full_path, transcript_results.text)
+        print(f"Transcript saved locally to {transcript_full_path}")
 
-    upload_file_to_blob_storage(transcript_full_path, transcript_file_name, transcript_container_name)
-    print(f"Transcript uploaded to Azure Blob Storage container {transcript_container_name} with blob name {transcript_file_name}")
+        upload_file_to_blob_storage(transcript_full_path, transcript_file_name, transcript_container_name)
+        print(f"Transcript uploaded to Azure Blob Storage container {transcript_container_name} with blob name {transcript_file_name}")
+
+if __name__ == "__main__":
+    main()
+    

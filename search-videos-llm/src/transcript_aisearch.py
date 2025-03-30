@@ -149,9 +149,7 @@ def get_folder_full_path(folder_name):
     target_folder = os.path.join(parent_folder, folder_name)
     return target_folder
 
-
-
-if __name__ == "__main__":
+def main():
     from dotenv import load_dotenv
     load_dotenv('.env', override=True)
     from glob import glob 
@@ -182,3 +180,7 @@ if __name__ == "__main__":
     # upload_documents_to_index(index_name, documents)
     upload_documents_to_index(AZURE_SEARCH_INDEX_NAME, documents)
     print('done')
+
+if __name__ == "__main__":
+    main()
+    
