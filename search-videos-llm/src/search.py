@@ -16,18 +16,25 @@ client = SearchClient(
 
 # Define a search query
 # query = question = input("Enter your question: ")
-query = "What types of firms use Supervision Compliance Manager?"
+# query = "What types of firms use Supervision Compliance Manager?"
+# query = "What is the first category of Data Domains?"
+# query = "Who founded the company?"
+# query = "Tell me about the The account rank module"
+query = "What are physical units?"
 results = client.search(query)
 print(f"Search results for query: '{query}'") 
 
 # Collect the relevant document snippets
+number_of_relevant_documents = 0
 relevant_documents = []
 for result in results:
     relevant_documents.append(result['content'])
+    number_of_relevant_documents += 1
  
 print("Retrieved Documents:")
 for doc in relevant_documents:
     print(doc)
+print(f"Number of relevant documents: {number_of_relevant_documents}")
 
 oaiClient = AzureOpenAI(
     api_version="2024-10-21",
@@ -36,7 +43,7 @@ oaiClient = AzureOpenAI(
 )
 
 sys_prompt = f'''
-Answer questions about processes and filters found in the work documents. Be professional in your response.
+Answer questions about information found in the video transcriptions. Be professional in your response.
 ++++
 {relevant_documents[0]}
 ++++
@@ -63,6 +70,7 @@ openAiResult = oaiClient.chat.completions.create(
 
 openAiMessage = openAiResult.choices[0].message
 
+print("==========================================================")
 print("Response:")
 print(openAiMessage)
 
