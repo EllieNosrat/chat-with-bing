@@ -1,3 +1,26 @@
+"""
+This script integrates Azure Cognitive Search and Azure OpenAI to perform a search query and generate a response 
+based on the retrieved documents. It performs the following steps:
+1. Imports necessary libraries and configuration variables.
+2. Initializes an Azure Cognitive Search client using the provided service name, index name, and API key.
+3. Executes a search query against the Azure Cognitive Search index to retrieve relevant documents.
+4. Extracts the content of the retrieved documents for further processing.
+5. Initializes an Azure OpenAI client using the provided endpoint and API key.
+6. Constructs a system prompt using the first retrieved document and prepares a conversation history.
+7. Sends the prompt and conversation history to the Azure OpenAI service to generate a response.
+8. Prints the retrieved documents and the AI-generated response.
+Dependencies:
+- `requests` and `json` for handling HTTP requests and JSON data.
+- `openai.AzureOpenAI` for interacting with Azure OpenAI.
+- `azure.search.documents.SearchClient` for querying Azure Cognitive Search.
+- Configuration variables (`AZURE_SEARCH_SERVICE_NAME`, `AZURE_SEARCH_INDEX_NAME`, etc.) must be defined in the `config` module.
+Note:
+- Ensure that the Azure Cognitive Search and Azure OpenAI services are properly configured and accessible.
+- The script assumes the presence of at least one relevant document in the search results.
+- The OpenAI model used is `gpt-4o`, and the parameters for the chat completion request can be adjusted as needed.
+- This script is intended for demonstration purposes only and is not designed for production use.
+"""
+
 import requests
 import json
 from openai import AzureOpenAI

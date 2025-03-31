@@ -1,3 +1,23 @@
+'''
+This program processes video transcript files, converts them into JSON 
+documents, and uploads them to an Azure Cognitive Search index for 
+semantic search capabilities. It includes functionality for creating 
+the search index, processing transcript files, and uploading documents.
+Key Features:
+- Converts transcript `.txt` files into structured JSON documents.
+- Creates an Azure Cognitive Search index with vector search capabilities.
+- Uploads processed documents to the search index in batches.
+Dependencies:
+- Azure SDKs: azure.search.documents, azure.core.credentials, openai.
+- Environment management: dotenv.
+- File handling: os, glob, shutil.
+Usage:
+- Place transcript `.txt` files in the `data/transcripts` folder.
+- Run the script to process files, create the index, and upload documents.
+Note:
+- This script is intended for demonstration purposes only and is not designed for production use.
+'''
+
 import os 
 from openai import AzureOpenAI
 import json 

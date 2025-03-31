@@ -1,3 +1,35 @@
+"""
+This script is a proof of concept for integrating Azure Cognitive Search and Azure OpenAI to retrieve 
+and process relevant information from a search index and generate responses to user queries.
+Modules:
+    - requests: For making HTTP requests (not used in the current implementation).
+    - json: For handling JSON data (not used in the current implementation).
+    - openai.AzureOpenAI: For interacting with Azure OpenAI services.
+    - azure.core.credentials.AzureKeyCredential: For authenticating with Azure services.
+    - azure.search.documents.SearchClient: For querying Azure Cognitive Search.
+    - config: Contains configuration variables such as API keys and endpoint URLs.
+Configuration:
+    The script relies on the following configuration variables from the `config` module:
+        - AZURE_SEARCH_INDEX_NAME: Name of the Azure Cognitive Search index.
+        - AZURE_SEARCH_API_KEY: API key for Azure Cognitive Search.
+        - AZURE_OPENAI_DEPLOYMENT_ENDPOINT: Endpoint for Azure OpenAI deployment.
+        - AZURE_OPENAI_DEPLOYMENT_KEY: API key for Azure OpenAI deployment.
+        - AZURE_SEARCH_ENDPOINT: Endpoint for Azure Cognitive Search.
+Workflow:
+    1. Initializes a `SearchClient` to query the Azure Cognitive Search index.
+    2. Executes a search query to retrieve relevant documents based on the user's question.
+    3. Collects and prints the retrieved document snippets.
+    4. Constructs a system prompt using the retrieved documents to guide the Azure OpenAI model.
+    5. Sends the query and context to the Azure OpenAI model to generate a precise response.
+    6. Prints the question and the generated response.
+Usage:
+    - Modify the `query` variable to specify the search query.
+    - Ensure that the required configuration variables are correctly set in the `config` module.
+    - Run the script to retrieve relevant documents and generate a response using Azure OpenAI.
+Note:
+    - This script is intended for demonstration purposes only and is not designed for production use.
+"""
+
 import requests
 import json
 from openai import AzureOpenAI

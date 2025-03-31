@@ -1,3 +1,22 @@
+"""
+Process video files from an Azure Blob Storage container, transcribe them using Azure OpenAI Whisper,and upload the resulting transcripts back to Azure Blob Storage.
+Steps:
+1. Connect to the Azure Blob Storage container containing video files.
+2. Download each video file locally.
+3. Use Azure OpenAI Whisper to transcribe the audio from the video file.
+4. Save the transcript locally as a text file.
+5. Upload the transcript file to a specified Azure Blob Storage container.
+Dependencies:
+- Azure Blob Storage SDK for Python
+- Azure OpenAI Whisper SDK
+Functions:
+- get_video_full_path: Constructs the full local path for a given file name and folder.
+- download_file_from_blob_storage: Downloads a file from Azure Blob Storage to a local path.
+- save_string_to_file: Saves a string to a local file.
+- upload_file_to_blob_storage: Uploads a local file to Azure Blob Storage.
+Note:
+- This script is intended for demonstration purposes only and is not designed for production use.
+"""
 import requests
 import json
 import os
