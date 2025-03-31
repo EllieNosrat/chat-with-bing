@@ -64,8 +64,9 @@ for result in results:
     number_of_relevant_documents += 1
  
 print("Retrieved Documents:")
-for doc in relevant_documents:
-    print(doc)
+# for doc in relevant_documents:
+    # print(doc)
+
 print(f"Number of relevant documents: {number_of_relevant_documents}")
 
 oaiClient = AzureOpenAI(

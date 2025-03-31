@@ -13,6 +13,15 @@ You will need to:
     - Run transcribe-videos.py. This only needs to be done once. It transcribes all videos and uploads the transcription text files into the "transcripts" container
     - Create an Azure AI Search Service and an index connected to the Azure Storage Account
 - In the code:
+- To transcribe videos, index transcripts, and update Azure AI Search:
     - Rename config-sample.py to config.py
     - update values in config.py corresponding to the assets created in Azure
-- Run app.py (not yet written)
+    - Run app.py
+- To search video transcripts with natural language
+    - Run search.py
+
+Here is the flow of information:
+
+![Flow of Information](./images/search-videos-llm.png)
+
+
