@@ -14,6 +14,7 @@ You will need to:
         - Add Indexer "azurealerts-indexer"
             - Index: Select index just created
             - Data Source: Select data storage just created
+            - Data to extrac: Content and metadata
     - Create an Azure AI Service
     - Create an Azure OpenAI service. 
     - Create an Azure AI Foundry Hub

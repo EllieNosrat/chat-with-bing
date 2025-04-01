@@ -15,8 +15,9 @@ def main():
 
     # Define a search query
     # query = question = input("Enter your question: ")
-    # query = "What triggers the CDSC Amount Threshold?"
-    query = "What triggers an alert?"
+    query = "What triggers the CDSC Amount Threshold?"
+    # query = "What triggers an alert?"
+    # query = "What are exceptions to the age max rule?"
     results = client.search(query)
     print(f"Search results for query: '{query}'") 
 
