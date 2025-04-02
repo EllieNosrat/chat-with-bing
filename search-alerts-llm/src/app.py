@@ -15,22 +15,23 @@ def main():
 
     # Define a search query
     # query = question = input("Enter your question: ")
-    query = "What triggers the CDSC Amount Threshold?"
+    # query = "What triggers the CDSC Amount Threshold?"
     # query = "What triggers an alert?"
-    # query = "What are exceptions to the age max rule?"
+    query = "What are exceptions to the age max rule?"
     results = client.search(query)
     print(f"Search results for query: '{query}'") 
 
     iterator = iter(results)
-    if not any(iterator):
-        print("No results found.")
-        return
+    # if not any(iterator):
+    #     print("No results found.")
+    #     return
 
     # Collect the relevant document snippets
     relevant_documents = []
-    for result in results:
-        relevant_documents.append(result['content'])
-    
+    # for result in results:
+    #     relevant_documents.append(result['content'])
+    relevant_documents.append('Exceptions are generated for buy trades where the principal amount exceeds the trade threshold for the given product type.') 
+
     print("Retrieved Documents:")
     for doc in relevant_documents:
         print(doc)
@@ -68,8 +69,10 @@ def main():
 
     openAiMessage = openAiResult.choices[0].message
 
+    print("============================")
+    print(f'Query {query}')
     print("Response:")
-    print(openAiMessage)
+    print(openAiMessage.content)
 
 if __name__ == "__main__":
     main()
