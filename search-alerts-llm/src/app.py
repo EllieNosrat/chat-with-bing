@@ -22,15 +22,14 @@ def main():
     print(f"Search results for query: '{query}'") 
 
     iterator = iter(results)
-    # if not any(iterator):
-    #     print("No results found.")
-    #     return
+    if not any(iterator):
+        print("No results found.")
+        return
 
     # Collect the relevant document snippets
     relevant_documents = []
-    # for result in results:
-    #     relevant_documents.append(result['content'])
-    relevant_documents.append('Exceptions are generated for buy trades where the principal amount exceeds the trade threshold for the given product type.') 
+    for result in results:
+        relevant_documents.append(result['content'])
 
     print("Retrieved Documents:")
     for doc in relevant_documents:
