@@ -3,4 +3,3 @@ src/config.py
 /data/pdf_docintel/*.json
 /data/alert_pdfs_json/*.json
 /data/alert_pdfs/*.pdf
-
