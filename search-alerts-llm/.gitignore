@@ -1,2 +1,6 @@
 src/config.py
-docs-to-search/*.pdf
+/data/docs-to-search/*.pdf
+/data/pdf_docintel/*.json
+/data/alert_pdfs_json/*.json
+/data/alert_pdfs/*.pdf
+

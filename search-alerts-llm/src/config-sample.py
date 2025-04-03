@@ -1,5 +1,9 @@
-AZURE_SEARCH_SERVICE_NAME = 'xxxxxxxxxxxx'
+# AZURE_SEARCH_SERVICE_NAME = 'xxxxxxxxxxxx'
 AZURE_SEARCH_INDEX_NAME = 'xxxxxxxxxxxx'
 AZURE_SEARCH_API_KEY = 'xxxxxxxxxxxx'
 AZURE_OPENAI_DEPLOYMENT_ENDPOINT = 'xxxxxxxxxxxx'
 AZURE_OPENAI_DEPLOYMENT_KEY = 'xxxxxxxxxxxx'
+AZURE_STORAGE_CONNECTION_STRING = 'xxxxxxxxxxxx'
+AZURE_SEARCH_ENDPOINT="xxxxxxxxxxxx"
+AZURE_OPENAI_ENDPOINT = 'xxxxxxxxxxxx'
+AZURE_OPENAI_API_KEY = 'xxxxxxxxxxxx'

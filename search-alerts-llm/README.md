@@ -20,15 +20,12 @@ You will need to:
     - Create an Azure AI Foundry Hub
         - Create a Project
             - Deploy Model gpt-4o
-    Create Document Intelligence project
-        http://documentintelligence.ai.azure.com/ (switch directory, if necessary)
-            - Custom extraction model
-                - Create AI Service / Doc Intelligence
-                - Select resource group, storage account, "alerts" container
-                - Label Data
-                    - Drop sample document
-                    - Run Layout
-        This adds indexed data to storage account's 'alerts' container
+In Document Intelligence studio (http://documentintelligence.ai.azure.com/)
+    - Layout model
+        - Add Alert_Param_Descriptions_241219_204304.pdf
+        - [Analyze]
+        - Download result
+        - Copy result (Alert_Param_Descriptions_241219_204304.pdf.json) into _data\pdf_docintel_ folder
 - In the code:
     - Rename config-sample.py to config.py
     - update values in config.py corresponding to the assets created in Azure

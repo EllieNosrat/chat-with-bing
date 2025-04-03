@@ -1,14 +1,13 @@
 from openai import AzureOpenAI
-from config import AZURE_SEARCH_SERVICE_NAME, AZURE_SEARCH_INDEX_NAME, AZURE_SEARCH_API_KEY, AZURE_OPENAI_DEPLOYMENT_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_KEY
+from config import AZURE_SEARCH_INDEX_NAME, AZURE_SEARCH_API_KEY, AZURE_OPENAI_DEPLOYMENT_ENDPOINT, AZURE_OPENAI_DEPLOYMENT_KEY, AZURE_SEARCH_ENDPOINT
 
 def main():
     from azure.core.credentials import AzureKeyCredential
     from azure.search.documents import SearchClient
 
     # Azure Cognitive Search Details
-    search_endpoint = f"https://{AZURE_SEARCH_SERVICE_NAME}.search.windows.net/"
     client = SearchClient(
-        endpoint=search_endpoint,
+        endpoint=AZURE_SEARCH_ENDPOINT,
         index_name=AZURE_SEARCH_INDEX_NAME,
         credential=AzureKeyCredential(AZURE_SEARCH_API_KEY)
     )
