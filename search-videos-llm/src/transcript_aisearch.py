@@ -90,7 +90,7 @@ def create_ai_search_index(index_name: str):
     )
     ai_search_index_client.create_index(index)
 
-def process_file_to_json(src_file_path: str, dest_file_path: str):
+def process_file_to_json(src_file_path: str, dest_file_path: str, vectorize: bool = True):
     '''Converts a text file to a json file with the following structure:
     {
         'content': str, # the content of the text file
