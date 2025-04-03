@@ -29,4 +29,5 @@ In Document Intelligence studio (http://documentintelligence.ai.azure.com/)
 - In the code:
     - Rename config-sample.py to config.py
     - update values in config.py corresponding to the assets created in Azure
+- Run transcript-aisearch.py
 - Run app.py
