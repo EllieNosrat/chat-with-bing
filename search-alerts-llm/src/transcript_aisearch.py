@@ -299,6 +299,7 @@ def process_doc_intel(src_glob, *, create_index=False):
 
     # upload documents
     results_pattern = src_glob.replace('.pdf.json', '.chunk*.json')
+    results_pattern = get_folder_full_path(results_pattern)
     documents = glob(results_pattern)
     upload_documents_to_index(index_name, documents)
 
